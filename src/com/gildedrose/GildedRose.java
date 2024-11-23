@@ -15,7 +15,18 @@ class GildedRose {
             }
 
             updateSellIn(item);
-            updateItemQuality(item);
+
+            if (isAgedBrie(item)) {
+                updateAgedBrie(item);
+                continue;
+            }
+
+            if (isBackstagePass(item)) {
+                updateBackstagePasses(item);
+                continue;
+            }
+
+            updateRegularItem(item);
         }
     }
 
@@ -27,15 +38,6 @@ class GildedRose {
         item.sellIn--;
     }
 
-    private void updateItemQuality(Item item) {
-        if (isAgedBrie(item)) {
-            updateAgedBrie(item);
-        } else if (isBackstagePass(item)) {
-            updateBackstagePasses(item);
-        } else {
-            updateRegularItem(item);
-        }
-    }
 
     private boolean isAgedBrie(Item item) {
         return item.name.equals("Aged Brie");
@@ -49,6 +51,7 @@ class GildedRose {
         if (item.quality < 50) {
             item.quality++;
         }
+
         if (item.sellIn < 0 && item.quality < 50) {
             item.quality++;
         }
@@ -57,13 +60,16 @@ class GildedRose {
     private void updateBackstagePasses(Item item) {
         if (item.quality < 50) {
             item.quality++;
-            if (item.sellIn < 10 && item.quality < 50) {
-                item.quality++;
-            }
-            if (item.sellIn < 5 && item.quality < 50) {
-                item.quality++;
-            }
         }
+
+        if (item.sellIn < 10 && item.quality < 50) {
+            item.quality++;
+        }
+
+        if (item.sellIn < 5 && item.quality < 50) {
+            item.quality++;
+        }
+
         if (item.sellIn < 0) {
             item.quality = 0;
         }
@@ -73,9 +79,9 @@ class GildedRose {
         if (item.quality > 0) {
             item.quality--;
         }
+
         if (item.sellIn < 0 && item.quality > 0) {
             item.quality--;
         }
     }
 }
-
