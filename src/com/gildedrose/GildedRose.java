@@ -8,20 +8,19 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            Item item = items[i];
-            if (isLegendary(item)) {
+        for (Item item : items) {
+            if (item.type.isLegendary()) {
                 continue; // Legendary items are not updated
             }
 
-            updateSellIn(item);
+            item.sellIn.decrement();
 
-            if (isAgedBrie(item)) {
+            if (item.type.isAgedBrie()) {
                 updateAgedBrie(item);
                 continue;
             }
 
-            if (isBackstagePass(item)) {
+            if (item.type.isBackstagePass()) {
                 updateBackstagePasses(item);
                 continue;
             }
@@ -30,58 +29,35 @@ class GildedRose {
         }
     }
 
-    private boolean isLegendary(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
-    }
-
-    private void updateSellIn(Item item) {
-        item.sellIn--;
-    }
-
-
-    private boolean isAgedBrie(Item item) {
-        return item.name.equals("Aged Brie");
-    }
-
-    private boolean isBackstagePass(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-    }
-
     private void updateAgedBrie(Item item) {
-        if (item.quality < 50) {
-            item.quality++;
-        }
+        item.quality.increase();
 
-        if (item.sellIn < 0 && item.quality < 50) {
-            item.quality++;
+        if (item.sellIn.isNegative()) {
+            item.quality.increase();
         }
     }
 
     private void updateBackstagePasses(Item item) {
-        if (item.quality < 50) {
-            item.quality++;
+        item.quality.increase();
+
+        if (item.sellIn.days < 10) {
+            item.quality.increase();
         }
 
-        if (item.sellIn < 10 && item.quality < 50) {
-            item.quality++;
+        if (item.sellIn.days < 5) {
+            item.quality.increase();
         }
 
-        if (item.sellIn < 5 && item.quality < 50) {
-            item.quality++;
-        }
-
-        if (item.sellIn < 0) {
-            item.quality = 0;
+        if (item.sellIn.isNegative()) {
+            item.quality.reset();
         }
     }
 
     private void updateRegularItem(Item item) {
-        if (item.quality > 0) {
-            item.quality--;
-        }
+        item.quality.decrease();
 
-        if (item.sellIn < 0 && item.quality > 0) {
-            item.quality--;
+        if (item.sellIn.isNegative()) {
+            item.quality.decrease();
         }
     }
 }

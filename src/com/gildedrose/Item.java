@@ -1,21 +1,20 @@
 package com.gildedrose;
 
 public class Item {
-
-    public String name;
-
-    public int sellIn;
-
-    public int quality;
+    public ItemType type;
+    public SellIn sellIn;
+    public Quality quality;
+    public Item name;
 
     public Item(String name, int sellIn, int quality) {
-        this.name = name;
-        this.sellIn = sellIn;
-        this.quality = quality;
+        this.type = new ItemType(name);
+        this.sellIn = new SellIn(sellIn);
+        this.quality = new Quality(quality);
     }
 
     @Override
     public String toString() {
-        return this.name + ", " + this.sellIn + ", " + this.quality;
+        return type + ", " + sellIn + ", " + quality;
     }
 }
+
