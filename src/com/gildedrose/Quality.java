@@ -7,19 +7,19 @@ public class Quality {
         this.value = value;
     }
 
-    public void increase() {
+    public void increaseQuality() {
         if (value < 50) {
             value++;
         }
     }
 
-    public void decrease() {
+    public void decreaseQuality() {
         if (value > 0) {
             value--;
         }
     }
 
-    public void reset() {
+    public void resetQuality() {
         value = 0;
     }
 

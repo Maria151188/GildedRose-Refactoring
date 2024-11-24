@@ -10,8 +10,8 @@ class GildedRoseTest {
     void foo() {
         Item[] items = new Item[] { new Item("foo", 0, 0) };
         GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals("fixme", app.getItems()[0].name.toString());
+        app.updateAllItemQualities();
+        assertEquals("fixme", app.getAllItemsAsArray()[0].name.toString());
     }
 }
 

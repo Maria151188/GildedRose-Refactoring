@@ -1,69 +1,69 @@
 package com.gildedrose;
 
 public class Item {
-    public ItemType type;
-    public SellIn sellIn;
-    public Quality quality;
+    public ItemType itemType; // Перейменовано для точності
+    public SellIn sellInDays; // Перейменовано для більшої зрозумілості
+    public Quality itemQuality; // Перейменовано для узгодженості
     public Item name;
 
-    public Item(String name, int sellIn, int quality) {
-        this.type = new ItemType(name);
-        this.sellIn = new SellIn(sellIn);
-        this.quality = new Quality(quality);
+    public Item(String itemName, int initialSellInDays, int initialQuality) {
+        this.itemType = new ItemType(itemName);
+        this.sellInDays = new SellIn(initialSellInDays);
+        this.itemQuality = new Quality(initialQuality);
     }
 
-    public void update() {
-        if (type.isLegendary()) {
+    public void updateItemState() { // Перейменовано для чіткого опису
+        if (itemType.isLegendaryItem()) {
             return;
         }
 
-        sellIn.decrement();
+        sellInDays.decrementDays();
 
-        if (type.isAgedBrie()) {
-            updateAgedBrie();
+        if (itemType.isAgedBrieItem()) {
+            updateAgedBrieItem();
             return;
         }
 
-        if (type.isBackstagePass()) {
-            updateBackstagePass();
+        if (itemType.isBackstagePassItem()) {
+            updateBackstagePassItem();
             return;
         }
 
         updateRegularItem();
     }
 
-    private void updateAgedBrie() {
-        quality.increase();
-        if (sellIn.isNegative()) {
-            quality.increase();
+    private void updateAgedBrieItem() { // Додано описове ім'я
+        itemQuality.increaseQuality();
+        if (sellInDays.hasExpired()) {
+            itemQuality.increaseQuality();
         }
     }
 
-    private void updateBackstagePass() {
-        quality.increase();
+    private void updateBackstagePassItem() { // Додано описове ім'я
+        itemQuality.increaseQuality();
 
-        if (sellIn.isLessThan(10)) { // Використовуємо метод `isLessThan`
-            quality.increase();
+        if (sellInDays.isLessThanThreshold(10)) {
+            itemQuality.increaseQuality();
         }
 
-        if (sellIn.isLessThan(5)) { // Ще одна перевірка
-            quality.increase();
+        if (sellInDays.isLessThanThreshold(5)) {
+            itemQuality.increaseQuality();
         }
 
-        if (sellIn.isNegative()) {
-            quality.reset();
+        if (sellInDays.hasExpired()) {
+            itemQuality.resetQuality();
         }
     }
 
-    private void updateRegularItem() {
-        quality.decrease();
-        if (sellIn.isNegative()) {
-            quality.decrease();
+    private void updateRegularItem() { // Додано описове ім'я
+        itemQuality.decreaseQuality();
+        if (sellInDays.hasExpired()) {
+            itemQuality.decreaseQuality();
         }
     }
 
     @Override
     public String toString() {
-        return type + ", " + sellIn + ", " + quality;
+        return itemType + ", " + sellInDays + ", " + itemQuality;
     }
 }

@@ -1,27 +1,28 @@
 package com.gildedrose;
 
 public class SellIn {
-    private int days; // Поле стало приватним для інкапсуляції
+    private int remainingDays; // Перейменовано для більшої зрозумілості
 
-    public SellIn(int days) {
-        this.days = days;
+    public SellIn(int initialDays) {
+        this.remainingDays = initialDays;
     }
 
-    public void decrement() {
-        days--;
+    public void decrementDays() { // Перейменовано для чіткого опису дії
+        remainingDays--;
     }
 
-    public boolean isNegative() {
-        return days < 0;
+    public boolean hasExpired() { // Більш зрозуміле ім'я методу
+        return remainingDays < 0;
     }
 
-    public boolean isLessThan(int threshold) {
-        return days < threshold; // Перевірка "менше ніж"
+    public boolean isLessThanThreshold(int threshold) { // Описує дію точніше
+        return remainingDays < threshold;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(days);
+        return String.valueOf(remainingDays);
     }
 }
+
 

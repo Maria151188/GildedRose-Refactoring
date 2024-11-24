@@ -7,14 +7,15 @@ public class GildedRose {
         this.itemCollection = new ItemCollection(items);
     }
 
-    public void updateQuality() {
-        itemCollection.updateItems();
+    public void updateAllItemQualities() { // Перейменовано для точності
+        itemCollection.updateAllItems();
     }
 
-    public Item[] getItems() {
-        return itemCollection.getItems().toArray(new Item[0]);
+    public Item[] getAllItemsAsArray() { // Більш зрозуміла назва
+        return itemCollection.getAllItems().toArray(new Item[0]);
     }
 }
+
 
 
 

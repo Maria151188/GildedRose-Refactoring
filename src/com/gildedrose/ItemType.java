@@ -7,15 +7,15 @@ public class ItemType {
         this.name = name;
     }
 
-    public boolean isLegendary() {
+    public boolean isLegendaryItem() {
         return name.equals("Sulfuras, Hand of Ragnaros");
     }
 
-    public boolean isAgedBrie() {
+    public boolean isAgedBrieItem() {
         return name.equals("Aged Brie");
     }
 
-    public boolean isBackstagePass() {
+    public boolean isBackstagePassItem() {
         return name.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 

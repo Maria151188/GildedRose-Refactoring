@@ -5,20 +5,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemCollection {
-    private final List<Item> items;
+    private final List<Item> itemList; // Перейменовано для описовості
 
     public ItemCollection(Item[] itemsArray) {
-        this.items = new ArrayList<>();
-        this.items.addAll(Arrays.asList(itemsArray));
+        this.itemList = new ArrayList<>();
+        this.itemList.addAll(Arrays.asList(itemsArray));
     }
 
-    public void updateItems() {
-        for (Item item : items) {
-            item.update();
+    public void updateAllItems() { // Більш точна назва
+        for (Item item : itemList) {
+            item.updateItemState();
         }
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Item> getAllItems() { // Чіткіша назва методу
+        return itemList;
     }
 }
