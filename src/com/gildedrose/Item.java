@@ -41,12 +41,15 @@ public class Item {
 
     private void updateBackstagePass() {
         quality.increase();
-        if (sellIn.days < 10) {
+
+        if (sellIn.isLessThan(10)) { // Використовуємо метод `isLessThan`
             quality.increase();
         }
-        if (sellIn.days < 5) {
+
+        if (sellIn.isLessThan(5)) { // Ще одна перевірка
             quality.increase();
         }
+
         if (sellIn.isNegative()) {
             quality.reset();
         }

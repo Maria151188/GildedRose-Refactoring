@@ -1,7 +1,7 @@
 package com.gildedrose;
 
 public class SellIn {
-    int days;
+    private int days; // Поле стало приватним для інкапсуляції
 
     public SellIn(int days) {
         this.days = days;
@@ -13,6 +13,10 @@ public class SellIn {
 
     public boolean isNegative() {
         return days < 0;
+    }
+
+    public boolean isLessThan(int threshold) {
+        return days < threshold; // Перевірка "менше ніж"
     }
 
     @Override
