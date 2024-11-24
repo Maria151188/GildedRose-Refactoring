@@ -1,56 +1,39 @@
 package com.gildedrose;
 public class Item {
-    public ItemType itemType; // Перейменовано для точності
-    public SellIn sellInDays; // Перейменовано для більшої зрозумілості
-    public Quality itemQuality; // Перейменовано для узгодженості
-    public Item name;
+    private final ItemInfo itemInfo;
+    private final ItemState itemState;
 
     public Item(String itemName, int initialSellInDays, int initialQuality) {
-        this.itemType = new ItemType(itemName);
-        this.sellInDays = new SellIn(initialSellInDays);
-        this.itemQuality = new Quality(initialQuality);
+        this.itemInfo = new ItemInfo(itemName, initialSellInDays);
+        this.itemState = new ItemState(initialQuality);
     }
-    public void updateItemState() { // Перейменовано для чіткого опису
-        if (itemType.isLegendaryItem()) {
+
+    public void updateItemState() {
+        if (itemInfo.isLegendaryItem()) {
             return;
         }
-        sellInDays.decrementDays();
-        if (itemType.isAgedBrieItem()) {
-            updateAgedBrieItem();
+        itemInfo.decrementSellIn();
+        if (itemInfo.isAgedBrieItem()) {
+            updateAgedBrie();
             return;
         }
-        if (itemType.isBackstagePassItem()) {
-            updateBackstagePassItem();
+        if (itemInfo.isBackstagePassItem()) {
+            updateBackstagePass();
             return;
         }
         updateRegularItem();
     }
-    private void updateAgedBrieItem() { // Додано описове ім'я
-        itemQuality.increaseQuality();
-        if (sellInDays.hasExpired()) {
-            itemQuality.increaseQuality();
-        }
+    private void updateAgedBrie() {
+        itemInfo.updateItemState(itemState::updateAgedBrieItem);
     }
-    private void updateBackstagePassItem() { // Додано описове ім'я
-        itemQuality.increaseQuality();
-        if (sellInDays.isLessThanThreshold(10)) {
-            itemQuality.increaseQuality();
-        }
-        if (sellInDays.isLessThanThreshold(5)) {
-            itemQuality.increaseQuality();
-        }
-        if (sellInDays.hasExpired()) {
-            itemQuality.resetQuality();
-        }
+    private void updateBackstagePass() {
+        itemInfo.updateItemState(itemState::updateBackstagePassItem);
     }
-    private void updateRegularItem() { // Додано описове ім'я
-        itemQuality.decreaseQuality();
-        if (sellInDays.hasExpired()) {
-            itemQuality.decreaseQuality();
-        }
+    private void updateRegularItem() {
+        itemInfo.updateItemState(itemState::updateRegularItem);
     }
     @Override
     public String toString() {
-        return itemType + ", " + sellInDays + ", " + itemQuality;
+        return itemInfo.toString() + ", " + itemState.toString();
     }
 }

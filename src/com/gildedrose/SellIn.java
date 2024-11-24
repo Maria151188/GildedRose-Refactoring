@@ -1,28 +1,22 @@
 package com.gildedrose;
 
 public class SellIn {
-    private int remainingDays; // Перейменовано для більшої зрозумілості
+    private int remainingDays;
 
     public SellIn(int initialDays) {
         this.remainingDays = initialDays;
     }
-
-    public void decrementDays() { // Перейменовано для чіткого опису дії
+    public void decrementDays() {
         remainingDays--;
     }
-
-    public boolean hasExpired() { // Більш зрозуміле ім'я методу
+    public boolean hasExpired() {
         return remainingDays < 0;
     }
-
-    public boolean isLessThanThreshold(int threshold) { // Описує дію точніше
+    public boolean isLessThanThreshold(int threshold) {
         return remainingDays < threshold;
     }
-
     @Override
     public String toString() {
         return String.valueOf(remainingDays);
     }
 }
-
-

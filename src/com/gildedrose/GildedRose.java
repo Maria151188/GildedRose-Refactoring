@@ -6,16 +6,10 @@ public class GildedRose {
     public GildedRose(Item[] items) {
         this.itemCollection = new ItemCollection(items);
     }
-
-    public void updateAllItemQualities() { // Перейменовано для точності
+    public void updateAllItemQualities() {
         itemCollection.updateAllItems();
     }
-
-    public Item[] getAllItemsAsArray() { // Більш зрозуміла назва
+    public Item[] getAllItemsAsArray() {
         return itemCollection.getAllItems().toArray(new Item[0]);
     }
 }
-
-
-
-
