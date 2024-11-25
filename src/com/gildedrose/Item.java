@@ -1,4 +1,5 @@
 package com.gildedrose;
+
 public class Item {
     private final ItemInfo itemInfo;
     private final ItemState itemState;
@@ -12,26 +13,37 @@ public class Item {
         if (itemInfo.isLegendaryItem()) {
             return;
         }
+
         itemInfo.decrementSellIn();
+        processItemBasedOnType();
+    }
+
+    private void processItemBasedOnType() {
         if (itemInfo.isAgedBrieItem()) {
             updateAgedBrie();
             return;
         }
+
         if (itemInfo.isBackstagePassItem()) {
             updateBackstagePass();
             return;
         }
+
         updateRegularItem();
     }
+
     private void updateAgedBrie() {
         itemInfo.updateItemState(itemState::updateAgedBrieItem);
     }
+
     private void updateBackstagePass() {
         itemInfo.updateItemState(itemState::updateBackstagePassItem);
     }
+
     private void updateRegularItem() {
         itemInfo.updateItemState(itemState::updateRegularItem);
     }
+
     @Override
     public String toString() {
         return itemInfo.toString() + ", " + itemState.toString();

@@ -1,4 +1,5 @@
 package com.gildedrose;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,4 @@ public class ItemCollection {
     public void updateAllItems() {
         items.forEach(Item::updateItemState);
     }
-
-    public List<Item> getAllItems() {
-        return items;
-    }
 }
-
